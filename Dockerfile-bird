@@ -1,0 +1,5 @@
+FROM library/debian:stable
+
+RUN apt update
+RUN apt install -y iproute2 iputils-ping bird2 less nano
+RUN mkdir -p /run/bird
