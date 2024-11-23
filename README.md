@@ -112,6 +112,82 @@ BGP neighbor is 10.255.254.2, remote AS 65002
     Accepted:               2
 
 ```
+**Step X:** In a similar way, you can inspect things with BIRD on r2 and r3. Let's connect to r3 and check some things out. The output below shows opening the BIRD CLI tool (birdc), showing neighbors, neighbor details, and the BIRD RIB. Then exiting, showing the FIB, and verifying reachability of a neighbor loopback:
+```
+root@r3:/# birdc
+BIRD 2.0.12 ready.
+bird> show protocols
+Name       Proto      Table      State  Since         Info
+device1    Device     ---        up     17:55:21.897
+direct1    Direct     ---        up     17:55:21.897
+kernel1    Kernel     master4    up     17:55:21.897
+r2         BGP        ---        up     17:55:26.375  Established
+
+bird> show protocols all r2
+Name       Proto      Table      State  Since         Info
+r2         BGP        ---        up     17:55:26.375  Established
+  BGP state:          Established
+    Neighbor address: 10.255.254.5
+    Neighbor AS:      65002
+    Local AS:         65003
+    Neighbor ID:      10.255.255.2
+    Local capabilities
+      Multiprotocol
+        AF announced: ipv4
+      Route refresh
+      Graceful restart
+      4-octet AS numbers
+      Enhanced refresh
+      Long-lived graceful restart
+    Neighbor capabilities
+      Multiprotocol
+        AF announced: ipv4
+      Route refresh
+      Graceful restart
+      4-octet AS numbers
+      Enhanced refresh
+      Long-lived graceful restart
+    Session:          external AS4
+    Source address:   10.255.254.6
+    Hold timer:       165.479/240
+    Keepalive timer:  30.114/80
+  Channel ipv4
+    State:          UP
+    Table:          master4
+    Preference:     100
+    Input filter:   ACCEPT
+    Output filter:  ACCEPT
+    Routes:         1 imported, 1 exported, 1 preferred
+    Route change stats:     received   rejected   filtered    ignored   accepted
+      Import updates:              1          0          0          0          1
+      Import withdraws:            0          0        ---          0          0
+      Export updates:              2          1          0        ---          1
+      Export withdraws:            0        ---        ---        ---          0
+    BGP Next hop:   10.255.254.6
+
+bird> show route
+Table master4:
+10.255.255.3/32      unicast [direct1 17:55:21.898] * (240)
+        dev lo0
+10.255.255.2/32      unicast [r2 17:55:26.754] * (100) [AS65002i]
+        via 10.255.254.5 on eth1
+
+bird> exit
+root@r3:/# ip route
+default via 172.20.20.1 dev eth0
+10.255.254.4/30 dev eth1 proto kernel scope link src 10.255.254.6
+10.255.255.2 via 10.255.254.5 dev eth1 proto bird metric 32
+172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.3
+
+root@r3:/# ping 10.255.255.2
+PING 10.255.255.2 (10.255.255.2) 56(84) bytes of data.
+64 bytes from 10.255.255.2: icmp_seq=1 ttl=64 time=0.058 ms
+```
+
+
+
+
+
 
 ```
 gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
