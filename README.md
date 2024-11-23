@@ -26,6 +26,8 @@ Some more info about the setup and nodes used:
 
 The idea is that r1 builds an EBGP adjacency with r2, and r3 builds an EBGP adjacency with r3.  Then, r1 gets some routes injected from an MRT file and exports them to r2 with next-hop-self set. The MRT routes should propagate to r3 as well.  
 
+The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.yml. There are some additional instructions, to set some interfaces and addresses, and to mount configuration files, an MRT file, and start BIRD. GoBGP needs to be started manually as per the instructions in the next section. Besides the topology file, configuration files, and MRT file, there are two Dockerfiles used to create the required containers.  
+
 
 ## Bootstrapping The Lab
 **Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used. **The rest of the steps must be performed from inside the lab directory**  
