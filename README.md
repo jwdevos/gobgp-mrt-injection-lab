@@ -42,6 +42,18 @@ docker build -f ./Dockerfile-gobgp -t degobgp .
 wget https://archive.routeviews.org/amsix.ams/bgpdata/2024.11/RIBS/rib.20241101.0000.bz2
 bzip2 -ckd rib.20241101.0000.bz2 > route-views-ams-ix-1-20241101.mrt
 ```
+**Step 4:** All parts are now in place and the lab can be started:
+```
+clab deploy
+```
+**Step 5:** The lab status can be inspected by both Containerlab and Docker:
+```
+clab inspect
+docker ps -a
+```
+
+
+- lab opruimen: destroy
 
 
 ## Information Sources
