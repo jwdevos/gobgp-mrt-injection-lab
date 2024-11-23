@@ -55,6 +55,8 @@ clab deploy
 **Step 5:** The lab status can be inspected by both Containerlab and Docker:
 ```
 clab inspect
+```
+```
 docker ps -a
 ```
 **Step 6:** With the lab up and running, it's time to connect to r1 and start gobgpd:
