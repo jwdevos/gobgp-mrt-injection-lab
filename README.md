@@ -41,7 +41,7 @@ docker build -f ./Dockerfile-bird -t debird .
 ```
 docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
-**Step 3:** Your locally available images can be listed like this:
+**Step 3:** Your locally available images can be listed and verified like this:
 ```
 docker image ls
 ```
