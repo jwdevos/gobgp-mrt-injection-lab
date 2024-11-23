@@ -32,6 +32,7 @@ The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.
 
 
 ## Bootstrapping The Lab
+Use the following steps to get the lab up and running:  
 **Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used. The rest of the steps must be performed from inside the lab directory  
 **Step 2:** Make the required custom Docker containers available by using the supplied Dockerfiles and building them:
 ```
@@ -71,6 +72,7 @@ gobgpd -t yaml -f /etc/gobgpd.conf
 
 
 ## Scouting The Territory
+Use the following steps to check out the lab environment a bit:  
 **Step 9:** Connect to r1 again:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
@@ -191,20 +193,19 @@ PING 10.255.255.2 (10.255.255.2) 56(84) bytes of data.
 
 
 ## Injecting The MRT Data
-bla
-
-
-
-```
-gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
-```
-**Step 7:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing) and inject some routes. Documentation on the GoBGP MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 5 prefixes get injected instead of a few million. There is also a flag `--only-best` that you can use to just inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
+Use the following steps to inject the MRT data into the lab:  
+**Step 12:** Use the next command to connect to r1 again and inject some routes from the MRT file ingo GoBGP. Documentation on the MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 5 prefixes get injected instead of a few million. There is also an optional flag `--only-best` that you can use to only inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
 ```
 ```
 gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
 ```
+**Step 13:** Inspect the GoBGP RIB and look for the new routes:
+```
+
+```
+
 
 
 
