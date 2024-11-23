@@ -119,7 +119,7 @@ BGP neighbor is 10.255.254.2, remote AS 65002
     Accepted:               2
 
 ```
-**Step 11:** In a similar way, you can inspect things with BIRD on r2 and r3. Let's connect to r3 and check some things out. The output below shows opening the BIRD CLI tool (birdc), showing neighbors, neighbor details, and the BIRD RIB. Then exiting, showing the FIB, and verifying reachability of a neighbor loopback:
+**Step 11:** In a similar way, you can inspect things with BIRD on r2 and r3. Let's connect to r3 and check some things out. The output below shows opening the BIRD CLI tool (birdc), showing neighbors, neighbor details, and the BIRD RIB. After that, exiting the birdc tool, showing the FIB, and verifying reachability of a neighbor loopback:
 ```
 root@r3:/# birdc
 BIRD 2.0.12 ready.
