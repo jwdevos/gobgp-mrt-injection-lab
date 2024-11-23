@@ -46,4 +46,6 @@ The following resources were referenced for building this lab:
 - [BIRD 2 User's Guide](https://bird.network.cz/?get_doc&f=bird.html&v=20)
 - [This excellent BIRD introduction](https://blog.kintone.io/entry/bird) on the Kintone Engineering Blog
 - [Another BIRD example](https://deploy.equinix.com/developers/guides/configuring-bgp-with-bird/) by Equinix
+- MRT files from RouteViews: https://archive.routeviews.org/
+- MRT files from RIPE. Their docs are tricky, you need to know the right directory name to find them: https://data.ris.ripe.net/rrc01/
 
