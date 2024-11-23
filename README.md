@@ -10,7 +10,7 @@ The following components were used for this lab:
 - [BIRD](https://bird.network.cz/) version 2.0.12 which was available through the Debian package manager
 
 ## Lab Setup
-topology:
+topology:  
 ![Lab Topology](topology.png)
 
 ## Bootstrapping The Lab
