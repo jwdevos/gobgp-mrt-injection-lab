@@ -59,6 +59,9 @@ clab inspect
 ```
 docker ps -a
 ```
+
+
+## Scouting The Territory
 **Step X:** With the lab up and running, it's time to connect to r1 and start gobgpd:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
@@ -185,7 +188,8 @@ PING 10.255.255.2 (10.255.255.2) 56(84) bytes of data.
 ```
 
 
-
+## Injecting The MRT Data
+bla
 
 
 
