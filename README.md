@@ -297,7 +297,7 @@ default via 10.255.254.1 dev eth1 proto bird metric 32
 10.255.255.3 via 10.255.254.6 dev eth2 proto bird metric 32
 172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.4
 ```
-**Step 15:** Finally, you can see that r3 learned the about the routes too:
+**Step 15:** Finally, you can see that r3 learned the about the routes as well:
 ```
 root@r3:/# ip route
 default via 172.20.20.1 dev eth0
