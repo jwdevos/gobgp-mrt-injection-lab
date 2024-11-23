@@ -26,7 +26,11 @@ Some more info about the setup and nodes used:
 
 The idea is that r1 builds an EBGP adjacency with r2, and r3 builds an EBGP adjacency with r3.  Then, r1 gets some routes injected from an MRT file and exports them to r2 with next-hop-self set. The MRT routes should propagate to r3 as well.  
 
+Note that the BIRD routers are configured to export their loopback IP and reachability of each others loopback works between these two routers. GoBGP doesn't feature built-in support for manipulating FIB / kernel routes, but instead relies on Zebra (a [FRRouting](https://frrouting.org/) component). 
+
 The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.yml. There are some additional instructions, to set some interfaces and addresses, and to mount configuration files, an MRT file, and start BIRD. GoBGP needs to be started manually as per the instructions in the next section. Besides the topology file, configuration files, and MRT file, there are two Dockerfiles used to create the required containers.  
+  
+
 
 
 ## Bootstrapping The Lab
@@ -36,7 +40,11 @@ The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.
 docker build -f ./Dockerfile-bird -t debird .
 docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
-**Step 3:** Bla
+**Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used
+```
+wget https://archive.routeviews.org/amsix.ams/bgpdata/2024.11/RIBS/rib.20241101.0000.bz2
+bzip2 -ckd rib.20241101.0000.bz2 > route-views-ams-ix-1-20241101.mrt
+```
 
 bla FIB GoBGP Zebra FRR bla
 
