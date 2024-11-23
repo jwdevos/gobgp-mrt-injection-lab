@@ -323,4 +323,5 @@ The following resources were referenced for building this lab:
 - [Another BIRD example](https://deploy.equinix.com/developers/guides/configuring-bgp-with-bird/) by Equinix
 - MRT files from RouteViews: https://archive.routeviews.org/
 - MRT files from RIPE. Their docs are tricky, you need to know the right directory name to find them: https://data.ris.ripe.net/rrc01/
+- [This Reddit thread](https://www.reddit.com/r/networking/comments/8aepn1/would_it_cause_problems_to_receive_full_tables/) is the only place I've seen the --only-best flag mentioned for the GoBGP MRT inject command. It's curiously missing in official documentation
 
