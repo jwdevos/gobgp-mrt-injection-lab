@@ -37,6 +37,7 @@ The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.
 docker build -f ./Dockerfile-bird -t debird .
 docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
+**Step 3:** Your images can be listed with `docker image ls`  
 **Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used
 ```
 wget https://archive.routeviews.org/amsix.ams/bgpdata/2024.11/RIBS/rib.20241101.0000.bz2
