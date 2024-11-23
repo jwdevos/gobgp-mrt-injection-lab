@@ -18,7 +18,7 @@ The lab topology according to the containerlab graph looks like this:
 ![Lab Topology](topology.png)  
 
 Some more info about the setup and nodes used:  
-| Node | Type | AS | lo0 IP | eth1 IP | eth2 IP |
+| Node | Type | AS | Router ID / lo0 IP | eth1 IP | eth2 IP |
 | --- | --- | --- | --- | --- | --- |
 | r1 | GoBGP | 65001 | 10.255.255.1 | 10.255.254.1/30 | N/A |
 | r2 | BIRD | 65002 | 10.255.255.2 | 10.255.254.2/30 | 10.255.254.5/30 |
