@@ -31,7 +31,7 @@ Note that the BIRD routers (r2 & r3) are configured to export their loopback IP 
 The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.yml. There are some additional instructions, to set some interfaces and addresses, and to mount configuration files, an MRT file, and start BIRD. GoBGP needs to be started manually as per the instructions in the next section. Besides the topology file, configuration files, and MRT file, there are two Dockerfiles used to create the required containers.  
 
 ## Bootstrapping The Lab
-**Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used. **The rest of the steps must be performed from inside the lab directory**  
+**Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used. The rest of the steps must be performed from inside the lab directory  
 **Step 2:** Make the required custom Docker containers available by using the supplied Dockerfiles and building them:
 ```
 docker build -f ./Dockerfile-bird -t debird .
