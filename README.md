@@ -123,6 +123,7 @@ BGP neighbor is 10.255.254.2, remote AS 65002
 ```
 root@r3:/# birdc
 BIRD 2.0.12 ready.
+
 bird> show protocols
 Name       Proto      Table      State  Since         Info
 device1    Device     ---        up     17:55:21.897
