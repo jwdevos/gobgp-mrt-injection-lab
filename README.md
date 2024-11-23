@@ -59,12 +59,62 @@ clab inspect
 ```
 docker ps -a
 ```
-**Step 6:** With the lab up and running, it's time to connect to r1 and start gobgpd:
+**Step X:** With the lab up and running, it's time to connect to r1 and start gobgpd:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
 ```
 ```
 gobgpd -t yaml -f /etc/gobgpd.conf
+```
+**Step X:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing) and connect to r1 again:
+```
+docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
+```
+**Step X:** GoBGP should have established a neighborship to the BIRD process on r2. Use the following commands to inspect the list of neighbors, and to display some capabilities and statistics for a specific neighbor:
+```
+root@r1:/# gobgp neighbor
+Peer            AS  Up/Down State       |#Received  Accepted
+10.255.254.2 65002 00:04:50 Establ      |        2         2
+
+root@r1:/# gobgp neighbor 10.255.254.2
+BGP neighbor is 10.255.254.2, remote AS 65002
+  BGP version 4, remote router ID 10.255.255.2
+  BGP state = ESTABLISHED, up for 00:04:52
+  BGP OutQ = 0, Flops = 0
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+
+  Neighbor capabilities:
+    multiprotocol:
+        ipv4-unicast:   advertised and received
+    route-refresh:      advertised and received
+    extended-nexthop:   advertised
+        Local:  nlri: ipv4-unicast, nexthop: ipv6
+    graceful-restart:   received
+    4-octet-as: advertised and received
+    enhanced-route-refresh:     received
+    long-lived-graceful-restart:        received
+    fqdn:       advertised
+      Local:
+         name: r1, domain:
+  Message statistics:
+                         Sent       Rcvd
+    Opens:                  1          1
+    Notifications:          0          0
+    Updates:                0          3
+    Keepalives:            10         11
+    Route Refresh:          0          0
+    Discarded:              0          0
+    Total:                 11         15
+  Route statistics:
+    Advertised:             0
+    Received:               2
+    Accepted:               2
+
+```
+
+```
+gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
 ```
 **Step 7:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing) and inject some routes. Documentation on the GoBGP MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 5 prefixes get injected instead of a few million. There is also a flag `--only-best` that you can use to just inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
 ```
