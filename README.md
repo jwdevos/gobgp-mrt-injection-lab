@@ -28,7 +28,7 @@ The idea is that r1 builds an EBGP adjacency with r2, and r3 builds an EBGP adja
 
 Note that the BIRD routers (r2 & r3) are configured to export their loopback IP, and reachability between loopback works between these two routers. For r1 this feature is broken; GoBGP doesn't feature built-in support for manipulating FIB / kernel routes, but instead relies on Zebra (a [FRRouting](https://frrouting.org/) component). As FIB integration on node r1 isn't a strict requirement for the purpose of this lab, Zebra integration was skipped.
 
-The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.yml. There are some additional instructions, to set some interfaces and addresses, and to mount configuration files, an MRT file, and starting BIRD. GoBGP needs to be started manually as per the instructions in the next section. Besides the topology file, configuration files, and MRT file, there are two Dockerfiles used to create the required containers.  
+The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.yml. There are some additional instructions, to set some interfaces and addresses, and to mount configuration files, an MRT file, and starting BIRD. GoBGP needs to be started manually as per the instructions in the next section. Besides the topology file, configuration files, and MRT file, there are two Dockerfiles used to create the required container images.  
 
 
 ## Bootstrapping The Lab
