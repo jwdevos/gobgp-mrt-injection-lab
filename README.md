@@ -35,6 +35,8 @@ The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.
 **Step 2:** Make the required custom Docker containers available by using the supplied Dockerfiles and building them:
 ```
 docker build -f ./Dockerfile-bird -t debird .
+```
+```
 docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
 **Step 3:** Your locally available images can be listed like this:
