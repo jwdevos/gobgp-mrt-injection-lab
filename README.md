@@ -12,8 +12,13 @@ The following components were used for this lab:
 - MRT dumps from RIPE or RouteViews
 
 ## Lab Setup
-topology:  
-![Lab Topology](topology.png)
+The lab topology according to the containerlab graph looks like this: 
+![Lab Topology](topology.png)  
+Some more info about the setup and nodes used:  
+| Node | AS | lo0 IP | eth1 IP | eth2 IP |
+| --- | --- | --- | --- | --- |
+| r1 | 65001 | 10.255.255.1 | 10.255.254.1/30 | N/A |
+
 
 ## Bootstrapping The Lab
 a
