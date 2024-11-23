@@ -41,7 +41,7 @@ docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
 docker image ls
 ```
-**Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used
+**Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used. Note that software engineering best practices have been applied, so this exact MRT filename is hardcoded in the Containerlab topology file:
 ```
 wget https://archive.routeviews.org/amsix.ams/bgpdata/2024.11/RIBS/rib.20241101.0000.bz2
 bzip2 -ckd rib.20241101.0000.bz2 > route-views-ams-ix-1-20241101.mrt
@@ -55,6 +55,15 @@ clab deploy
 clab inspect
 docker ps -a
 ```
+**Step 6:** With the lab up and running, it's time to connect to r1 and start gobgpd:
+```
+gobgpd -t yaml -f /etc/gobgpd.conf
+```
+**Step 7:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing) and inject some routes. Documentation on the GoBGP MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 5 prefixes get injected instead of a few million. There is also a flag `--only-best` that you can use to just inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
+```
+gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
+```
+
 
 
 - lab opruimen: destroy
