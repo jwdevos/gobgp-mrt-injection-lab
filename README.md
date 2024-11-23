@@ -9,6 +9,7 @@ The following components were used for this lab:
 - [GoBGP](https://osrg.github.io/gobgp/) version 3.10.0 which was available through the Debian package manager
 - [BIRD](https://bird.network.cz/) version 2.0.12 which was available through the Debian package manager
 - Custom Docker containers for GoBGP and BIRD
+- MRT dumps from RIPE or RouteViews
 
 ## Lab Setup
 topology:  
