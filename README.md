@@ -224,11 +224,93 @@ root@r1:/# gobgp global rib
 *> 1.0.4.0/22           80.249.210.48        271253 1299 7545 2764 38803 38803 38803      00:00:01   [{Origin: i}]
 *  1.0.4.0/22           80.249.209.211       3320 1299 7545 2764 38803 38803 38803        00:00:01   [{Origin: i} {Communities: 3320:1528, 3320:2010, 3320:9020}]
 ```
+**Step 14:** All good so far, and it's pretty cool to see some real actual internet routes inside your own lab. Connect to r2 and do some more inspection. You can see that BIRD learned a number of routes in the stats, see the routes in the BIRD RIB, and see them in the FIB too:
+```
+root@r2:/# birdc
+BIRD 2.0.12 ready.
+
+bird> show protocols all r1
+Name       Proto      Table      State  Since         Info
+r1         BGP        ---        up     19:31:11.952  Established
+  BGP state:          Established
+    Neighbor address: 10.255.254.1
+    Neighbor AS:      65001
+    Local AS:         65002
+    Neighbor ID:      10.255.255.1
+    Local capabilities
+      Multiprotocol
+        AF announced: ipv4
+      Route refresh
+      Graceful restart
+      4-octet AS numbers
+      Enhanced refresh
+      Long-lived graceful restart
+    Neighbor capabilities
+      Multiprotocol
+        AF announced: ipv4
+      Route refresh
+      Extended next hop
+        IPv6 nexthop: ipv4
+      4-octet AS numbers
+      Hostname: r1
+    Session:          external AS4
+    Source address:   10.255.254.2
+    Hold timer:       70.379/90
+    Keepalive timer:  24.438/30
+  Channel ipv4
+    State:          UP
+    Table:          master4
+    Preference:     100
+    Input filter:   ACCEPT
+    Output filter:  ACCEPT
+    Routes:         3 imported, 2 exported, 3 preferred
+    Route change stats:     received   rejected   filtered    ignored   accepted
+      Import updates:             31          0          0          0         31
+      Import withdraws:            0          0        ---          0          0
+      Export updates:             33         31          0        ---          2
+      Export withdraws:            0        ---        ---        ---          0
+    BGP Next hop:   10.255.254.2
+
+bird> show route
+Table master4:
+0.0.0.0/0            unicast [r1 19:31:49.702] * (100) [AS6204?]
+        via 10.255.254.1 on eth1
+1.0.4.0/22           unicast [r1 19:31:49.705] * (100) [AS38803i]
+        via 10.255.254.1 on eth1
+1.0.0.0/24           unicast [r1 19:31:49.703] * (100) [AS13335i]
+        via 10.255.254.1 on eth1
+10.255.255.3/32      unicast [r3 19:31:03.964] * (100) [AS65003i]
+        via 10.255.254.6 on eth2
+10.255.255.2/32      unicast [direct1 19:30:59.389] * (240)
+        dev lo0
+
+bird> exit
+
+root@r2:/# ip route
+default via 172.20.20.1 dev eth0
+default via 10.255.254.1 dev eth1 proto bird metric 32
+1.0.0.0/24 via 10.255.254.1 dev eth1 proto bird metric 32
+1.0.4.0/22 via 10.255.254.1 dev eth1 proto bird metric 32
+10.255.254.0/30 dev eth1 proto kernel scope link src 10.255.254.2
+10.255.254.4/30 dev eth2 proto kernel scope link src 10.255.254.5
+10.255.255.3 via 10.255.254.6 dev eth2 proto bird metric 32
+172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.4
+```
+**Step 15:** Finally, you can see that r3 learned the about the routes too:
+```
+root@r3:/# ip route
+default via 172.20.20.1 dev eth0
+default via 10.255.254.5 dev eth1 proto bird metric 32
+1.0.0.0/24 via 10.255.254.5 dev eth1 proto bird metric 32
+1.0.4.0/22 via 10.255.254.5 dev eth1 proto bird metric 32
+10.255.254.4/30 dev eth1 proto kernel scope link src 10.255.254.6
+10.255.255.2 via 10.255.254.5 dev eth1 proto bird metric 32
+172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.2
+```
 
 
-
-
-- lab opruimen: destroy
+## Wrapping Up
+You can bring down the lab and remove the containers with `clab destroy`. Containerlab is a perfect platform to play around and try things like this, but probably not the best choice for working with really large routing tables. The next step is to take the idea demonstrated here and use it to inject routes into real hardware based platforms.  
 
 
 ## Information Sources
