@@ -310,7 +310,7 @@ default via 10.255.254.5 dev eth1 proto bird metric 32
 
 
 ## Wrapping Up
-You can bring down the lab and remove the containers with `clab destroy`. Containerlab is a perfect platform to play around and try things like this, but probably not the best choice for working with really large routing tables. The next step is to take the idea demonstrated here and use it to inject routes into real hardware based platforms.  
+You can bring down the lab and remove the containers with `clab destroy`. Containerlab is a perfect platform to play around and try things like this, but probably not the best choice for working with really large routing tables. The next step is to take the idea demonstrated here and use it to inject routes into real hardware based platforms. Maybe even doing things with multiple links, failovers and testing convergence times.
 
 
 ## Information Sources
