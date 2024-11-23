@@ -16,12 +16,15 @@ The following components were used for this lab:
 ## Lab Setup
 The lab topology according to the containerlab graph looks like this: 
 ![Lab Topology](topology.png)  
+
 Some more info about the setup and nodes used:  
 | Node | Type | AS | lo0 IP | eth1 IP | eth2 IP |
 | --- | --- | --- | --- | --- | --- |
 | r1 | GoBGP | 65001 | 10.255.255.1 | 10.255.254.1/30 | N/A |
 | r2 | BIRD | 65002 | 10.255.255.2 | 10.255.254.2/30 | 10.255.254.5/30 |
 | r3 | BIRD | 65003 | 10.255.255.3 | 10.255.254.6/30 | N/A |
+
+The idea is that r1 builds an EBGP adjacency with r2, and r3 builds an EBGP adjacency with r3.  Then, r1 gets some routes injected from an MRT file and exports them to r2 with next-hop-self set. The MRT routes should propagate to r3 as well.  
 
 
 ## Bootstrapping The Lab
