@@ -195,7 +195,7 @@ PING 10.255.255.2 (10.255.255.2) 56(84) bytes of data.
 
 ## Injecting The MRT Data
 Use the following steps to inject the MRT data into the lab:  
-**Step 12:** Use the next command to connect to r1 again and inject some routes from the MRT file into GoBGP. Documentation on the MRT inject feature is sparse. There might be more undocumented features, but the info presented here is all that was readily available online. The trailing number of the inject command is a *count* value that makes sure only 5 routes get injected instead of a few million. There is also an optional flag `--only-best` that you can use to only inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times consequently, GoBGP is smart enough to inject new prefixes from the same file:
+**Step 12:** Use the next commands to connect to r1 again and inject some routes from the MRT file into GoBGP. Documentation on the MRT inject feature is sparse. There might be more undocumented features, but the info presented here is all that was readily available online. The trailing number of the inject command is a *count* value that makes sure only 5 routes get injected instead of a few million. There is also an optional flag `--only-best` that you can use to only inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times consequently, GoBGP is smart enough to inject new prefixes from the same file:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
 ```
