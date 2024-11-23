@@ -18,7 +18,7 @@ a
 ## Information Sources
 The following resources were referenced for building this lab:
 - [GoBGP documentation](https://github.com/osrg/gobgp/blob/master/README.md)
-- This excellent [JPNAP GoBGP Tutorial](https://blog.netravnen.com/wp-content/uploads/2019/08/ixbrforum10day3gobgptutorial-161205210258.pdf) with YAML examples! Such a relieve after the unreadable TOML stuff in the official docs
+- [This excellent JPNAP GoBGP Tutorial](https://blog.netravnen.com/wp-content/uploads/2019/08/ixbrforum10day3gobgptutorial-161205210258.pdf) with YAML examples! Such a relieve after the unreadable TOML stuff in the official docs
 - [BIRD 2 User's Guide](https://bird.network.cz/?get_doc&f=bird.html&v=20)
 - [This excellent BIRD introduction](https://blog.kintone.io/entry/bird) on the Kintone Engineering Blog
 - [Another BIRD example](https://deploy.equinix.com/developers/guides/configuring-bgp-with-bird/) by Equinix
