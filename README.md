@@ -30,6 +30,7 @@ Note that the BIRD routers (r2 & r3) are configured to export their loopback IP 
 
 The containerlab topology is described in the file gobgp-mrt-injection-lab.clab.yml. There are some additional instructions, to set some interfaces and addresses, and to mount configuration files, an MRT file, and start BIRD. GoBGP needs to be started manually as per the instructions in the next section. Besides the topology file, configuration files, and MRT file, there are two Dockerfiles used to create the required containers.  
 
+
 ## Bootstrapping The Lab
 **Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used. The rest of the steps must be performed from inside the lab directory  
 **Step 2:** Make the required custom Docker containers available by using the supplied Dockerfiles and building them:
@@ -43,37 +44,38 @@ docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
 docker image ls
 ```
-**Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used. Note that software engineering best practices have been applied, so this exact MRT filename is hardcoded in the Containerlab topology file. Give the bzip2 command a bit of time to complete:
+**Step 4:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used. Note that software engineering best practices have been applied, so this exact MRT filename is hardcoded in the Containerlab topology file. Give the bzip2 command a bit of time to complete:
 ```
 wget https://archive.routeviews.org/amsix.ams/bgpdata/2024.11/RIBS/rib.20241101.0000.bz2
 bzip2 -ckd rib.20241101.0000.bz2 > route-views-ams-ix-1-20241101.mrt
 ```
-**Step 4:** All parts are now in place and the lab can be started:
+**Step 5:** All parts are now in place and the lab can be started:
 ```
 clab deploy
 ```
-**Step 5:** The lab status can be inspected by both Containerlab and Docker:
+**Step 6:** The lab status can be inspected by both Containerlab and Docker:
 ```
 clab inspect
 ```
 ```
 docker ps -a
 ```
-
-
-## Scouting The Territory
-**Step X:** With the lab up and running, it's time to connect to r1 and start gobgpd:
+**Step 7:** With the lab up and running, it's time to connect to r1 and start gobgpd:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
 ```
 ```
 gobgpd -t yaml -f /etc/gobgpd.conf
 ```
-**Step X:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing) and connect to r1 again:
+**Step 8:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing)  
+
+
+## Scouting The Territory
+**Step 9:** Connect to r1 again:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
 ```
-**Step X:** GoBGP should have established a neighborship to the BIRD process on r2. Use the following commands to inspect the list of neighbors, and to display some capabilities and statistics for a specific neighbor:
+**Step 10:** GoBGP should have established a neighborship to the BIRD process on r2. Use the following commands to inspect the list of neighbors, and to display some capabilities and statistics for a specific neighbor:
 ```
 root@r1:/# gobgp neighbor
 Peer            AS  Up/Down State       |#Received  Accepted
@@ -115,7 +117,7 @@ BGP neighbor is 10.255.254.2, remote AS 65002
     Accepted:               2
 
 ```
-**Step X:** In a similar way, you can inspect things with BIRD on r2 and r3. Let's connect to r3 and check some things out. The output below shows opening the BIRD CLI tool (birdc), showing neighbors, neighbor details, and the BIRD RIB. Then exiting, showing the FIB, and verifying reachability of a neighbor loopback:
+**Step 11:** In a similar way, you can inspect things with BIRD on r2 and r3. Let's connect to r3 and check some things out. The output below shows opening the BIRD CLI tool (birdc), showing neighbors, neighbor details, and the BIRD RIB. Then exiting, showing the FIB, and verifying reachability of a neighbor loopback:
 ```
 root@r3:/# birdc
 BIRD 2.0.12 ready.
