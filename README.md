@@ -59,9 +59,15 @@ docker ps -a
 ```
 **Step 6:** With the lab up and running, it's time to connect to r1 and start gobgpd:
 ```
+docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
+```
+```
 gobgpd -t yaml -f /etc/gobgpd.conf
 ```
 **Step 7:** The gobgpd process has to keep running in the terminal, so open another one (tmux is a good tool for terminal session multiplexing) and inject some routes. Documentation on the GoBGP MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 5 prefixes get injected instead of a few million. There is also a flag `--only-best` that you can use to just inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
+```
+docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
+```
 ```
 gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
 ```
