@@ -28,7 +28,8 @@ The idea is that r1 builds an EBGP adjacency with r2, and r3 builds an EBGP adja
 
 
 ## Bootstrapping The Lab
-a
+**Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used  
+**Step 2:** 
 
 bla FIB GoBGP Zebra FRR bla
 
