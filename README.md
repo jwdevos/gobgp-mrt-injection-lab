@@ -29,7 +29,12 @@ The idea is that r1 builds an EBGP adjacency with r2, and r3 builds an EBGP adja
 
 ## Bootstrapping The Lab
 **Step 1:** Clone this repository to a convenient location. In this case the home directory of the root user was used  
-**Step 2:** 
+**Step 2:** Make the required custom Docker containers available by using the supplied Dockerfiles and building them:
+```
+docker build -f ./Dockerfile-bird -t debird .
+docker build -f ./Dockerfile-gobgp -t degobgp .
+```
+**Step 3:** Bla
 
 bla FIB GoBGP Zebra FRR bla
 
