@@ -43,7 +43,7 @@ docker build -f ./Dockerfile-gobgp -t degobgp .
 ```
 docker image ls
 ```
-**Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used. Note that software engineering best practices have been applied, so this exact MRT filename is hardcoded in the Containerlab topology file:
+**Step 3:** Download and decompress an MRT file. In this example, a file from RouteViews from an AMS-IX location was used. Note that software engineering best practices have been applied, so this exact MRT filename is hardcoded in the Containerlab topology file. Give the bzip2 command a bit of time to complete:
 ```
 wget https://archive.routeviews.org/amsix.ams/bgpdata/2024.11/RIBS/rib.20241101.0000.bz2
 bzip2 -ckd rib.20241101.0000.bz2 > route-views-ams-ix-1-20241101.mrt
