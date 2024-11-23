@@ -194,16 +194,35 @@ PING 10.255.255.2 (10.255.255.2) 56(84) bytes of data.
 
 ## Injecting The MRT Data
 Use the following steps to inject the MRT data into the lab:  
-**Step 12:** Use the next command to connect to r1 again and inject some routes from the MRT file ingo GoBGP. Documentation on the MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 10 prefixes get injected instead of a few million. There is also an optional flag `--only-best` that you can use to only inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
+**Step 12:** Use the next command to connect to r1 again and inject some routes from the MRT file ingo GoBGP. Documentation on the MRT inject feature is sparse. In this case, the trailing number is a *count* value that makes sure only 5 prefixes get injected instead of a few million. There is also an optional flag `--only-best` that you can use to only inject the best known route for a given prefix, instead of all known routes. The inject command with the count value can be used multiple times, GoBGP is smart enough to inject new prefixes from the same file:
 ```
 docker exec -it clab-gobgp-mrt-injection-lab-r1 /bin/bash
 ```
 ```
-gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 10
+gobgp mrt inject global route-views-ams-ix-1-20241101.mrt 5
 ```
-**Step 13:** Inspect the GoBGP RIB and look for the new routes:
+**Step 13:** Inspect the GoBGP RIB and look for the new routes. You might have to run the previous inject command twice to get more than just a "default" prefix with a few next-hops:
 ```
-
+root@r1:/# gobgp global rib
+   Network              Next Hop             AS_PATH                                      Age        Attrs
+*> 0.0.0.0/0            80.249.214.200       6204                                         00:00:01   [{Origin: ?}]
+*> 1.0.0.0/24           80.249.210.48        271253 1299 13335                            00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}}]
+*  1.0.0.0/24           80.249.209.211       3320 6762 13335                              00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.180}} {Communities: 3320:1528, 3320:2010, 3320:9020, 6762:1, 6762:92, 6762:14400, 6762:20007, 6762:20008, 6762:20022, 6762:20023, 6762:20093, 6762:20094, 6762:20096, 6762:20097, 6762:20098, 6762:20099}]
+*  1.0.0.0/24           80.249.210.38        34177 13335                                  00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.5.236}}]
+*  1.0.0.0/24           80.249.211.162       213241 13335                                 00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}}]
+*  1.0.0.0/24           80.249.214.200       6204 13335                                   00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}} {Communities: 6204:2000, 6204:2002}]
+*  1.0.0.0/24           80.249.213.7         293 13335                                    00:00:01   [{Origin: i} {Med: 1} {Aggregate: {AS: 13335, Address: 10.34.6.80}}]
+*  1.0.0.0/24           80.249.210.28        39120 13335                                  00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 172.68.196.1}} {Communities: 13335:10126, 13335:19020, 13335:20050, 13335:20500, 13335:20530} {LargeCommunity: [ 39120:24796:1]}]
+*  1.0.0.0/24           80.249.215.28        20253 1299 13335                             00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}}]
+*  1.0.0.0/24           80.249.213.88        328832 13335                                 00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 172.68.184.1}} {Communities: 13335:10113, 13335:19030, 13335:20050, 13335:20500, 13335:20530, 37497:4102}]
+*  1.0.0.0/24           80.249.210.118       37271 13335                                  00:00:01   [{Origin: i} {Med: 0} {Aggregate: {AS: 13335, Address: 10.34.6.80}} {Communities: 13335:10020, 13335:19020, 13335:20050, 13335:20500, 13335:20530, 37271:1005, 37271:2150, 37271:2155, 37271:3528, 37271:4006, 37271:5002, 37271:5200, 37271:5212}]
+*  1.0.0.0/24           80.249.211.140       1140 13335                                   00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}} {Communities: no-export}]
+*  1.0.0.0/24           80.249.208.162       49544 13335                                  00:00:01   [{Origin: i} {Med: 0} {Aggregate: {AS: 13335, Address: 10.34.6.80}} {Communities: 13335:10020, 13335:19020, 13335:20050, 13335:20500, 13335:20530, 49544:23000, 49544:23031}]
+*  1.0.0.0/24           80.249.211.234       56987 13335                                  00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.5.236}}]
+*  1.0.0.0/24           80.249.208.34        1103 13335                                   00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}} {Communities: 13335:10020, 13335:19020, 13335:20050, 13335:20500, 13335:20530}]
+*  1.0.0.0/24           80.249.212.41        398465 13335                                 00:00:01   [{Origin: i} {Aggregate: {AS: 13335, Address: 10.34.6.80}} {Communities: 13335:10020, 13335:19020, 13335:20050, 13335:20500, 13335:20530}]
+*> 1.0.4.0/22           80.249.210.48        271253 1299 7545 2764 38803 38803 38803      00:00:01   [{Origin: i}]
+*  1.0.4.0/22           80.249.209.211       3320 1299 7545 2764 38803 38803 38803        00:00:01   [{Origin: i} {Communities: 3320:1528, 3320:2010, 3320:9020}]
 ```
 
 
