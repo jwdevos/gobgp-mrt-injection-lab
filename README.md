@@ -308,10 +308,11 @@ default via 10.255.254.5 dev eth1 proto bird metric 32
 10.255.255.2 via 10.255.254.5 dev eth1 proto bird metric 32
 172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.2
 ```
+**Step 16:** When you're done labbing, you can bring down the lab and remove the containers with `clab destroy`  
 
 
 ## Wrapping Up
-You can bring down the lab and remove the containers with `clab destroy`. Containerlab is a perfect platform to play around and try things like this, but probably not the best choice for working with really large routing tables. The next step is to take the idea demonstrated here and use it to inject routes into real hardware based platforms. Maybe even doing things with multiple links, failovers and testing convergence times. Also, a way to ramp up the number of injected routes over time programmatically would be great to have for performance testing.
+Containerlab is a perfect platform to play around and try things like this, but probably not the best choice for working with really large routing tables. The next step is to take the idea demonstrated here and use it to inject routes into real hardware based platforms. Maybe even doing things with multiple links, failovers and testing convergence times. Also, a way to ramp up the number of injected routes over time programmatically would be great to have for performance testing.  
 
 
 ## Information Sources
