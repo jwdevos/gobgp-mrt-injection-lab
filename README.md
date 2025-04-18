@@ -1,3 +1,5 @@
+**-- this repo will be archived and moved to https://codeberg.org/jwdevos/gobgp-mrt-injection-lab --**
+
 # gobgp-mrt-injection-lab
 This lab demonstrates how to read routes from [MRT files](https://datatracker.ietf.org/doc/html/rfc6396), import those routes in GoBGP, then advertise them to a peer. There is a lot of information online about creating MRT dumps, but information about injecting MRT data back into a router is almost non-existent. There are a few tools and scripts for doing so. The GoBGP support for importing data from MRT files seems to be the most robust option so far.
 
